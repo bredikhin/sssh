@@ -6,7 +6,6 @@
 var util = require('util');
 var Transform = require('stream').Transform;
 var path = require('path');
-require('colors');
 
 var Sssh = {};
 
@@ -21,12 +20,18 @@ function Command(ssh, command) {
   var self = this;
   if (command) {
     ssh.exec(command, function(err, stream) {
-      if (err)
-        throw err;
+      if (err) {
+        self.emit('error', err);
+        return;
+      }
 
       stream.on('data', function(data, type) {
         data = data.toString().replace(/^\s+|\s+$/g, '');
-        self.push(data[(type === 'stderr' ? 'red' : 'green')]);
+        if (type === 'stderr') {
+          ssh.emit('error', new Error(data));
+        }
+        else
+          self.push(data);
       });
 
       stream.on('end', function() {
