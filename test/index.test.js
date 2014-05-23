@@ -4,7 +4,6 @@
  * Dependencies
  */
 var should = require('should');
-require('colors');
 var EventEmitter = require('events').EventEmitter;
 var Writable = require('stream').Writable;
 var Transform = require('stream').Transform;
@@ -14,7 +13,14 @@ var ssh = function(err) {
       command.should.be.eql('sort of a command');
       var stream = new EventEmitter();
       cb(err, stream);
-      stream.emit('data', 'Success!');
+      if (err === 'stderr') {
+        cb(null, stream);
+        stream.emit('data', 'Error!', 'stderr');
+      }
+      else {
+        cb(err, stream);
+        stream.emit('data', 'Success!');
+      }
       stream.emit('end');
     }
   };
@@ -42,6 +48,14 @@ describe('Sssh', function() {
       it('throws an error on failure', function(done) {
         (function() {
           var command = new Command(ssh(new Error('Ouch!')), 'sort of a command');
+        }).should.throwError();
+
+        done();
+      });
+      
+      it('throws an error on stderr', function(done) {
+        (function() {
+          var command = new Command(ssh('stderr'), 'sort of a command');
         }).should.throwError();
 
         done();
