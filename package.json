@@ -25,9 +25,6 @@
     "url": "https://github.com/bredikhin/sssh/issues"
   },
   "homepage": "https://github.com/bredikhin/sssh",
-  "dependencies": {
-    "colors": "^0.6.2"
-  },
   "devDependencies": {
     "mocha": "^1.19.0",
     "pre-commit": "0.0.7",
