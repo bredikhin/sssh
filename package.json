@@ -1,0 +1,36 @@
+{
+  "name": "sssh",
+  "version": "0.0.1",
+  "description": "Streaming SSH",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha test --recursive -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:bredikhin/sssh.git"
+  },
+  "keywords": [
+    "ssh",
+    "ssh2",
+    "stream",
+    "command",
+    "transform",
+    "remote",
+    "pipe"
+  ],
+  "author": "Ruslan Bredikhin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bredikhin/sssh/issues"
+  },
+  "homepage": "https://github.com/bredikhin/sssh",
+  "dependencies": {
+    "colors": "^0.6.2"
+  },
+  "devDependencies": {
+    "mocha": "^1.19.0",
+    "pre-commit": "0.0.7",
+    "should": "^3.3.1"
+  }
+}
